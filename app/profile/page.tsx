@@ -1,46 +1,54 @@
-import { redirect } from "next/navigation";
 import { getSessionUser } from "@/app/lib/getSessionUser";
+import ProfileClient from "./ProfileClient";
 
 export default async function ProfilePage() {
   const user = await getSessionUser();
 
-  // Si no hay usuario → Login
-  if (!user) {
-    redirect("/log-in");
-  }
-
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 p-6">
-      <div className="max-w-md w-full bg-white shadow-xl rounded-xl p-8">
-        <h2 className="text-3xl font-bold text-center mb-6">
-          Perfil del Usuario
-        </h2>
-
-        <div className="flex flex-col items-center">
-          {user.picture && (
-            <img
-              src={user.picture}
-              alt="foto de perfil"
-              className="w-24 h-24 rounded-full border shadow mb-4"
-            />
-          )}
-
-          <p className="text-lg font-semibold mb-2">
-            {user.name ?? "Sin nombre"}
-          </p>
-
-          <p className="text-gray-600 mb-6">{user.email}</p>
+    <>
+      <header className="w-full bg-gradient-to-r from-sky-400 to-blue-500 py-4 px-6 shadow-lg sticky top-0 z-50">
+        <div className="max-w-7xl mx-auto flex justify-between items-center">
+          <div className="flex items-center gap-3">
+            <span className="text-4xl font-bold text-yellow-300">Peque</span>
+            <span className="text-4xl font-bold text-white">MATHS</span>
+          </div>
+          <a href="/" className="bg-white text-blue-500 px-6 py-2 rounded-full font-bold hover:bg-yellow-300 hover:text-blue-600 transition-all hover:scale-105">
+            🏠 Inicio
+          </a>
         </div>
+      </header>
 
-        <form action="/api/sessionLogout" method="POST">
-          <button
-            type="submit"
-            className="w-full py-3 bg-red-500 text-white font-bold rounded-lg hover:bg-red-600 transition"
-          >
-            Cerrar Sesión
-          </button>
-        </form>
-      </div>
-    </div>
+      <main className="min-h-screen bg-gradient-to-br from-sky-100 via-blue-50 to-purple-100 py-12 px-4">
+        <div className="max-w-2xl mx-auto">
+          {user ? (
+            <div className="bg-white rounded-3xl shadow-2xl overflow-hidden">
+              {/* Header del perfil */}
+              <div className="bg-gradient-to-r from-sky-400 to-blue-500 p-8 text-center">
+                <h1 className="text-4xl font-bold text-white mb-2">👤 Mi Perfil</h1>
+                <p className="text-sky-100">Personaliza tu cuenta y edita tus datos</p>
+              </div>
+
+              {/* Contenido */}
+              <div className="p-8">
+                <ProfileClient user={user} />
+              </div>
+            </div>
+          ) : (
+            <div className="bg-white rounded-3xl shadow-2xl overflow-hidden">
+              <div className="bg-gradient-to-r from-red-400 to-pink-500 p-12 text-center">
+                <h1 className="text-4xl font-bold text-white mb-4">⚠️ No autenticado</h1>
+                <p className="text-lg text-red-50 mb-8">No estás conectado. Inicia sesión para acceder a tu perfil.</p>
+                <a
+                  href="/log-in"
+                  className="inline-block px-8 py-3 bg-white text-red-500 font-bold rounded-full hover:bg-red-50 hover:scale-105 transition-all shadow-lg"
+                >
+                  🔐 Iniciar sesión
+                </a>
+              </div>
+            </div>
+          )}
+        </div>
+      </main>
+    </>
   );
 }

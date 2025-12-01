@@ -167,9 +167,11 @@ export default function Home() {
                 </div>
                 <div className="p-6">
                   <h3 className="bubblegum-font text-xl font-semibold text-slate-900 mb-4">Números</h3>
-                  <button className="w-full bg-sky-500 hover:bg-sky-600 text-white font-semibold py-3 px-6 rounded-full transition-all duration-300 hover:-translate-y-1 shadow-md">
-                    Juega
-                  </button>
+                  <a href="/juegos/encuentra-numero">
+                    <button className="w-full bg-sky-500 hover:bg-sky-600 text-white font-semibold py-3 px-6 rounded-full transition-all duration-300 hover:-translate-y-1 shadow-md">
+                      Juega
+                    </button>
+                  </a>
                 </div>
               </article>
 
@@ -180,9 +182,11 @@ export default function Home() {
                 </div>
                 <div className="p-6">
                   <h3 className="bubblegum-font text-xl font-semibold text-slate-900 mb-4">Sumas y restas</h3>
-                  <button className="w-full bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-3 px-6 rounded-full transition-all duration-300 hover:-translate-y-1 shadow-md">
-                    Juega
-                  </button>
+                  <a href="/juegos/suma-saltarina">
+                    <button className="w-full bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-3 px-6 rounded-full transition-all duration-300 hover:-translate-y-1 shadow-md">
+                      Juega
+                    </button>
+                  </a>
                 </div>
               </article>
 
@@ -206,9 +210,11 @@ export default function Home() {
                 </div>
                 <div className="p-6">
                   <h3 className="bubblegum-font text-xl font-semibold text-slate-900 mb-4">Patrones</h3>
+                  <a href="/juegos/patron-perdido">
                   <button className="w-full bg-amber-600 hover:bg-amber-700 text-white font-semibold py-3 px-6 rounded-full transition-all duration-300 hover:-translate-y-1 shadow-md">
                     Juega
                   </button>
+                  </a>
                 </div>
               </article>
 
@@ -304,7 +310,7 @@ export default function Home() {
             <article className="reveal flex flex-col items-center text-center bg-white rounded-3xl p-8 shadow-xl hover:shadow-2xl hover:-translate-y-3 transition-all duration-400 relative overflow-hidden group">
               <div className="absolute bottom-0 left-0 w-full h-1 bg-sky-400 transition-all duration-300 group-hover:h-2"></div>
               <div className="w-24 h-24 rounded-full bg-sky-400/10 flex items-center justify-center mb-6 text-5xl group-hover:bg-sky-400 group-hover:text-white transition-all duration-300">
-                👁️
+                👁
               </div>
               <h3 className="bubblegum-font text-xl font-semibold text-slate-900 mb-3">Atención</h3>
               <p className="text-slate-600 text-sm">Los juegos mejoran la concentración y el enfoque, ayudando a los niños a mantener la atención durante más tiempo.</p>
@@ -378,7 +384,7 @@ export default function Home() {
                   { icon: '🏠', text: 'Inicio', href: '#Inicio' },
                   { icon: '🎮', text: 'Juegos', href: '#Juegos' },
                   { icon: '📞', text: 'Contacto', href: '#Contacto' },
-                  { icon: 'ℹ️', text: 'Sobre nosotros', href: '#Sobrenosotros' }
+                  { icon: 'ℹ', text: 'Sobre nosotros', href: '#Sobrenosotros' }
                 ].map((link, idx) => (
                   <li key={idx} className="flex items-center gap-3">
                     <span className="text-yellow-300 text-xl">{link.icon}</span>
@@ -394,6 +400,6 @@ export default function Home() {
           </div>
         </div>
       </footer>
-    </>
-  );
+    </>
+  );
 }

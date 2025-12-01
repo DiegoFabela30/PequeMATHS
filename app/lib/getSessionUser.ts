@@ -8,13 +8,14 @@ export async function getSessionUser() {
 
     if (!session) return null;
 
-    const decoded = await adminAuth.verifySessionCookie(session, true);
+    const decoded = await adminAuth.verifySessionCookie(session, true) as any;
 
     return {
       uid: decoded.uid,
       email: decoded.email ?? "",
       name: decoded.name ?? "",
       picture: decoded.picture ?? "",
+      admin: !!decoded.admin || !!decoded['admin'] || !!decoded['roles']?.admin || !!decoded['customClaims']?.admin
     };
   } catch {
     return null;
