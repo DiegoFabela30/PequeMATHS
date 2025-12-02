@@ -61,7 +61,10 @@ export default async function DashboardPage() {
               Administra permisos y cuentas del sistema.
             </p>
             <button className="w-full py-3 bg-blue-500 text-white font-semibold rounded-xl hover:bg-blue-600 transition">
-              Entrar
+              
+              <a href="/dashboard/users" >
+                Ver usuarios
+              </a>
             </button>
           </div>
 
@@ -75,7 +78,9 @@ export default async function DashboardPage() {
               Consulta estadísticas y métricas importantes.
             </p>
             <button className="w-full py-3 bg-purple-500 text-white font-semibold rounded-xl hover:bg-purple-600 transition">
-              Ver estadísticas
+              <a href="/dashboard/analytics" >
+                Ver estadísticas
+              </a>
             </button>
           </div>
 
