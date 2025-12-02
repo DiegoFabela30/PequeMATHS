@@ -1,8 +1,10 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
 /**
  * Script para asignar admin claim a un usuario.
  * Usage: node scripts/set-admin.js <UID>
  */
 
+// eslint-disable-next-line @typescript-eslint/no-require-imports
 const admin = require('firebase-admin');
 const fs = require('fs');
 const path = require('path');

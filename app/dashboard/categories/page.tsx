@@ -1,4 +1,4 @@
-import Header from "../Header";
+import Header from "@/app/componentes/Header";
 import CategoriesClient from "./CategoriesClient";
 
 export const runtime = "nodejs";
