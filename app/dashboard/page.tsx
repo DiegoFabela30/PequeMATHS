@@ -43,7 +43,9 @@ export default async function DashboardPage() {
               Crea, edita o elimina las categorías para los niños.
             </p>
             <button className="w-full py-3 bg-pink-500 text-white font-semibold rounded-xl hover:bg-pink-600 transition">
-              Configurar
+              <a href="/dashboard/categories" >
+                Configurar
+              </a>
             </button>
           </div>
 
