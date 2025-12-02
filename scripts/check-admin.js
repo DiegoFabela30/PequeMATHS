@@ -1,8 +1,11 @@
 #!/usr/bin/env node
+// eslint-disable-next-line @typescript-eslint/no-require-imports
 const admin = require('firebase-admin');
 
 // Cargar variables desde .env.local
+// eslint-disable-next-line @typescript-eslint/no-require-imports
 const fs = require('fs');
+// eslint-disable-next-line @typescript-eslint/no-require-imports
 const path = require('path');
 const envPath = path.join(__dirname, '..', '.env.local');
 
