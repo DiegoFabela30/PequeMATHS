@@ -13,23 +13,26 @@ export default function UserPieChart({ total }: { total: number }) {
         Usuarios Registrados
       </h2>
 
-      <PieChart width={350} height={350}>
-        <Pie
-          data={data}
-          dataKey="value"
-          nameKey="name"
-          cx="50%"
-          cy="50%"
-          outerRadius={120}
-          fill="#4F46E5"
-          label
-        >
-          <Cell fill="#4F46E5" />
-        </Pie>
+      {/* CONTENEDOR QUE CENTRA LA GRÁFICA */}
+      <div className="flex justify-center items-center">
+        <PieChart width={350} height={350}>
+          <Pie
+            data={data}
+            dataKey="value"
+            nameKey="name"
+            cx="50%"
+            cy="50%"
+            outerRadius={120}
+            fill="#4F46E5"
+            label
+          >
+            <Cell fill="#4F46E5" />
+          </Pie>
 
-        <Tooltip />
-        <Legend verticalAlign="bottom" height={36} />
-      </PieChart>
+          <Tooltip />
+          <Legend verticalAlign="bottom" height={36} />
+        </PieChart>
+      </div>
     </div>
   );
 }
