@@ -4,8 +4,20 @@ import { redirect } from 'next/navigation';
 
 export default async function AdminPage() {
   const user = await getSessionUser();
-  if (!user) redirect('/log-in');
-  if (!user.admin) redirect('/');
+  
+  // No session = redirect to login
+  if (!user) {
+    console.log('[Admin] No session user found, redirecting to /log-in');
+    redirect('/log-in');
+  }
+  
+  // Not admin = redirect to home
+  if (!user.admin) {
+    console.log('[Admin] User', user.email, 'is not admin (admin flag:', user.admin, '), redirecting to /');
+    redirect('/');
+  }
+  
+  console.log('[Admin] User', user.email, 'has admin access');
 
   return (
     <main className="min-h-screen bg-gray-50 p-8">

@@ -8,6 +8,7 @@ export default function AdminClient() {
   const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [message, setMessage] = useState<string | null>(null);
 
   async function fetchUsers() {
     setLoading(true);
@@ -26,9 +27,16 @@ export default function AdminClient() {
 
   async function toggleAdmin(uid: string, current: boolean) {
     try {
-      const res = await fetch('/api/admin/set-admin', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ uid, makeAdmin: !current }) });
+      const res = await fetch('/api/admin/set-admin', { 
+        method: 'POST', 
+        headers: { 'Content-Type': 'application/json' }, 
+        body: JSON.stringify({ uid, makeAdmin: !current }) 
+      });
       const data = await res.json();
       if (!res.ok) throw new Error(data?.error || 'Failed');
+      
+      setMessage(`✅ Rol ${!current ? 'otorgado' : 'revocado'}. El usuario debe cerrar sesión y volver a iniciar para que los cambios tomen efecto.`);
+      setTimeout(() => setMessage(null), 5000);
       fetchUsers();
     } catch (err) {
       alert('Error: ' + (err instanceof Error ? err.message : String(err)));
@@ -40,6 +48,7 @@ export default function AdminClient() {
       <h2 className="text-2xl font-bold mb-4">Usuarios</h2>
       {loading && <p>Cargando...</p>}
       {error && <p className="text-red-600">{error}</p>}
+      {message && <p className="bg-green-100 text-green-700 p-3 rounded mb-4">{message}</p>}
       <div className="space-y-3">
         {users.map(u => (
           <div key={u.uid} className="flex items-center justify-between p-3 border rounded">

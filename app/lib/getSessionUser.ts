@@ -9,13 +9,16 @@ export async function getSessionUser() {
     if (!session) return null;
 
     const decoded = await adminAuth.verifySessionCookie(session, true) as any;
+    
+    // Custom claims are stored directly in the decoded token
+    const isAdmin = decoded?.admin === true;
 
     return {
       uid: decoded.uid,
       email: decoded.email ?? "",
       name: decoded.name ?? "",
       picture: decoded.picture ?? "",
-      admin: !!decoded.admin || !!decoded['admin'] || !!decoded['roles']?.admin || !!decoded['customClaims']?.admin
+      admin: isAdmin
     };
   } catch {
     return null;
