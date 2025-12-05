@@ -197,9 +197,11 @@ export default function Home() {
                 </div>
                 <div className="p-6">
                   <h3 className="bubblegum-font text-xl font-semibold text-slate-900 mb-4">Formas</h3>
+                  <a href="/juegos/formas">
                   <button className="w-full bg-emerald-500 hover:bg-emerald-600 text-white font-semibold py-3 px-6 rounded-full transition-all duration-300 hover:-translate-y-1 shadow-md">
                     Juega
                   </button>
+                  </a>
                 </div>
               </article>
 
@@ -217,6 +219,30 @@ export default function Home() {
                   </a>
                 </div>
               </article>
+              <article
+  className="reveal flex flex-col items-center text-center hover:transform hover:scale-105 hover:-translate-y-4 hover:rotate-3 transition-all duration-400 bg-white rounded-3xl shadow-xl overflow-hidden"
+  style={{ animationDelay: '1.0s' }}
+>
+  <div className="w-full h-32 bg-gradient-to-br from-red-300 to-red-400 flex items-center justify-center text-6xl relative overflow-hidden group">
+    <span className="relative z-10 transform group-hover:scale-125 transition-transform duration-300">
+      ✖➗
+    </span>
+    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
+  </div>
+
+  <div className="p-6">
+    <h3 className="bubblegum-font text-xl font-semibold text-slate-900 mb-4">
+      Multiplicaciones y Divisiones
+    </h3>
+
+    <a href="/juegos/multiplicaciones-divisiones">
+      <button className="w-full bg-red-500 hover:bg-red-600 text-white font-semibold py-3 px-6 rounded-full transition-all duration-300 hover:-translate-y-1 shadow-md">
+        Juega
+      </button>
+    </a>
+  </div>
+</article>
+
 
               <article className="reveal flex flex-col items-center text-center hover:transform hover:scale-105 hover:-translate-y-4 hover:rotate-3 transition-all duration-400 bg-white rounded-3xl shadow-xl overflow-hidden" style={{animationDelay: '0.8s'}}>
                 <div className="w-full h-32 bg-gradient-to-br from-purple-300 to-purple-400 flex items-center justify-center text-6xl relative overflow-hidden group">
@@ -225,9 +251,13 @@ export default function Home() {
                 </div>
                 <div className="p-6">
                   <h3 className="bubblegum-font text-xl font-semibold text-slate-900 mb-4">Memoria</h3>
+                  <a href="/juegos/memoria">
                   <button className="w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold py-3 px-6 rounded-full transition-all duration-300 hover:-translate-y-1 shadow-md">
                     Juega
+
+                    
                   </button>
+                  </a>
                 </div>
               </article>
             </div>
