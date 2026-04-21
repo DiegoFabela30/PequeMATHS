@@ -9,10 +9,10 @@
   --surfece: #ffffff;
   --card: #b046c0;
   --border: #e5e5e5;
-  --radius:: 16px;
+  --radius: 16px;
   --container: 1100px;
   --font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  --shadow: 010px 30px rgba(0,0,0, .25);
+  --shadow: 0 10px 30px rgba(0,0,0, .25);
   --foreground: #171717;
 }
 
@@ -24,7 +24,7 @@
 }
 
 @media (prefers-color-scheme: dark) {
-  :root { /* toda la pagina tendra este backram*/
+  :root {
     --background: #d3dd22;
     --foreground: #ededed;
   }
@@ -37,24 +37,23 @@ body {
 }
 
 .nav{
-  display: flex; ; /*el flex es para el acomodo de vertical y no horizontal*/
+  display: flex;
   align-items: center;
-  justify-content: space-between; /*justifica el contenido entre los elemetos*/
-  padding: 0.9rem 0; /**/
+  justify-content: space-between;
+  padding: 0.9rem 0;
 }
 
 .menu{
   list-style: none;
   display: flex;
-  gap: 1rem; /*espacio entre los elementos */
+  gap: 1rem;
   margin: 0;
   padding: 0;
 }
 
-.site-header{ /*sticky es para que se quede en donde se ponga , aunque se haga scroll se queda ahí la barra*/
+.site-header{
   position: sticky; top: 0; z-index: 50;
-  backdrop-filter: blur(8px); /* blur es para que se vea borroso*/
-  background: linear-gradient(180deg, #5672ffcc, #56a5ffad); /*cada componente puede tener su propio backgrpund*/
+  backdrop-filter: blur(8px);
+  background: linear-gradient(180deg, #5672ffcc, #56a5ffad);
   border-bottom: 0px solid var(--border);
 }
-

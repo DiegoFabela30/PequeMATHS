@@ -56,7 +56,6 @@ export default function MemoriaMagica() {
     if (sequenceTimerRef.current) {
       clearTimeout(sequenceTimerRef.current);
     }
-    // @ts-ignore -- window.setTimeout returns number in browser
     sequenceTimerRef.current = window.setTimeout(() => {
       setShowSequence(false);
       setCanSelect(true);

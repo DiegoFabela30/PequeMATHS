@@ -219,10 +219,7 @@ export default function Home() {
                   </a>
                 </div>
               </article>
-              <article
-  className="reveal flex flex-col items-center text-center hover:transform hover:scale-105 hover:-translate-y-4 hover:rotate-3 transition-all duration-400 bg-white rounded-3xl shadow-xl overflow-hidden"
-  style={{ animationDelay: '1.0s' }}
->
+              <article className="reveal flex flex-col items-center text-center hover:transform hover:scale-105 hover:-translate-y-4 hover:rotate-3 transition-all duration-400 bg-white rounded-3xl shadow-xl overflow-hidden" style={{ animationDelay: '1.0s' }}>
   <div className="w-full h-32 bg-gradient-to-br from-red-300 to-red-400 flex items-center justify-center text-6xl relative overflow-hidden group">
     <span className="relative z-10 transform group-hover:scale-125 transition-transform duration-300">
       ✖➗
