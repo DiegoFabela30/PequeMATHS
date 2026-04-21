@@ -24,9 +24,15 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
 
 // Generar rutas estáticas para todas las categorías
 export async function generateStaticParams() {
-  const categories = await listCategories();
-
-  return categories.map((category) => ({
-    slug: category.slug,
-  }));
+  try {
+    const categories = await listCategories();
+    return categories.map((category) => ({
+      slug: category.slug,
+    }));
+  } catch (error) {
+    // Si Firebase no está disponible durante el build (ej: en GitHub Actions sin credenciales),
+    // retornamos un array vacío. Las rutas se generarán bajo demanda (ISR/SSR)
+    console.warn('Could not generate static params: Firebase credentials not available during build', error);
+    return [];
+  }
 }
