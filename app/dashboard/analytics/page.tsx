@@ -1,12 +1,20 @@
 // app/dashboard/analytics/page.tsx
 
 import { adminAuth } from "@/app/lib/firebase-admin";
+import UserPieChart from "./UserPieChart";
+
+export const dynamic = 'force-dynamic';
 
 export default async function AnalyticsPage() {
   // Obtener usuarios desde Firebase Admin
-  const users = await adminAuth.listUsers(1000);
+  let totalUsers = 0;
 
-  const totalUsers = users.users.length;
+  try {
+    const users = await adminAuth.listUsers(1000);
+    totalUsers = users.users.length;
+  } catch (error) {
+    console.warn('Failed to fetch users for analytics:', error);
+  }
 
   return (
     <div className="min-h-screen bg-gray-100 p-10">
@@ -24,6 +32,3 @@ export default async function AnalyticsPage() {
     </div>
   );
 }
-
-// IMPORTAMOS EL CLIENT COMPONENT AQUÍ ↓
-import UserPieChart from "./UserPieChart";
