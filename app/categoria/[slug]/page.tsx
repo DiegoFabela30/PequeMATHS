@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation';
-import { listCategories } from '@/app/lib/admin-categories';
+import { listCategories, Category } from '@/app/lib/admin-categories';
 import CategoriaClient from './CategoriaClient';
 
 interface CategoryPageProps {
@@ -11,22 +11,25 @@ interface CategoryPageProps {
 export default async function CategoryPage({ params }: CategoryPageProps) {
   const { slug } = params;
 
+  let category: Category | null = null;
+
   try {
     // Obtener todas las categorías y filtrar por slug
     const categories = await listCategories();
-    const category = categories.find(cat => cat.slug === slug);
+    category = categories.find(cat => cat.slug === slug) || null;
 
     if (!category) {
       notFound();
     }
-
-    return <CategoriaClient category={category} />
   } catch (error) {
     // Si Firebase no está disponible (ej: durante el build en GitHub Actions),
     // redirigir a not found para evitar errores de build
     console.warn('Could not load category during build:', error);
     notFound();
   }
+
+  // Retornar el JSX fuera del try/catch
+  return <CategoriaClient category={category!} />;
 }
 
 // Generar rutas estáticas para todas las categorías
