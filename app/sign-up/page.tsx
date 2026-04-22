@@ -24,11 +24,16 @@ export default function SignUpPage() {
 
   async function sendSessionToServer(credential: UserCredential) {
     const idToken = await credential.user.getIdToken();
-    await fetch("/api/sessionLogin", {
+    const res = await fetch("/api/sessionLogin", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ idToken, remember: true }),
     });
+
+    if (!res.ok) {
+      const data = await res.json();
+      throw new Error(data.error || "Error al crear la sesión");
+    }
   }
 
   async function onSubmit(e: React.FormEvent) {
@@ -41,19 +46,25 @@ export default function SignUpPage() {
 
     try {
       setLoading(true);
+      setError(null);
       const cred = await createUserWithEmailAndPassword(auth, email, password);
       await updateProfile(cred.user, { displayName: name });
       
       // Guardar perfil en Firestore
-      await fetch('/api/create-profile', {
+      const profileRes = await fetch('/api/create-profile', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ uid: cred.user.uid, email, name })
       });
+
+      if (!profileRes.ok) {
+        console.warn('Could not create profile, but continuing with session');
+      }
       
       await sendSessionToServer(cred);
       router.push("/auth-redirect");
-    } catch {
+    } catch (err) {
+      console.error("Sign up error:", err);
       setError("Error al registrarse");
     } finally {
       setLoading(false);
@@ -63,12 +74,14 @@ export default function SignUpPage() {
   async function handleGoogleSignIn() {
     try {
       setLoading(true);
+      setError(null);
       const provider = new GoogleAuthProvider();
       const result = await signInWithPopup(auth, provider);
       await sendSessionToServer(result);
       router.push("/auth-redirect");
-    } catch {
-      setError("Error con Google");
+    } catch (err) {
+      console.error("Google sign-in error:", err);
+      setError("Error con Google. Verifica tu conexión o intenta más tarde");
     } finally {
       setLoading(false);
     }

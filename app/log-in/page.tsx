@@ -16,37 +16,62 @@ export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
     try {
+      setLoading(true);
       const cred: UserCredential = await signInWithEmailAndPassword(auth, email, password);
       const idToken = await cred.user.getIdToken();
 
-      await fetch("/api/sessionLogin", {
+      const res = await fetch("/api/sessionLogin", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ idToken, remember: true }),
       });
 
+      if (!res.ok) {
+        setError("Error al iniciar sesión");
+        return;
+      }
+
       router.push("/auth-redirect");
-    } catch {
+    } catch (err) {
+      console.error("Login error:", err);
       setError("Credenciales incorrectas");
+    } finally {
+      setLoading(false);
     }
   }
 
   async function handleGoogleSignIn() {
-    const provider = new GoogleAuthProvider();
-    const result = await signInWithPopup(auth, provider);
-    const idToken = await result.user.getIdToken();
+    try {
+      setLoading(true);
+      setError(null);
+      const provider = new GoogleAuthProvider();
+      const result = await signInWithPopup(auth, provider);
+      const idToken = await result.user.getIdToken();
 
-    await fetch("/api/sessionLogin", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ idToken, remember: true }),
-    });
+      const res = await fetch("/api/sessionLogin", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ idToken, remember: true }),
+      });
 
-    router.push("/auth-redirect");
+      if (!res.ok) {
+        const data = await res.json();
+        setError(data.error || "Error al iniciar sesión con Google");
+        return;
+      }
+
+      router.push("/auth-redirect");
+    } catch (err) {
+      console.error("Google sign-in error:", err);
+      setError("Error con Google. Verifica tu conexión o intenta más tarde");
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
@@ -126,9 +151,10 @@ export default function LoginPage() {
 
               <button
                 type="submit"
-                className="bubblegum-font w-full bg-sky-400 hover:bg-sky-500 text-white text-xl py-4 rounded-full transition-all duration-300 hover:-translate-y-1 hover:scale-105 shadow-lg"
+                disabled={loading}
+                className="bubblegum-font w-full bg-sky-400 hover:bg-sky-500 disabled:bg-sky-300 text-white text-xl py-4 rounded-full transition-all duration-300 hover:-translate-y-1 hover:scale-105 shadow-lg disabled:cursor-not-allowed"
               >
-                ¡Entrar! 🚀
+                {loading ? "Cargando..." : "¡Entrar! 🚀"}
               </button>
 
               <div className="flex items-center gap-3 my-2">
@@ -139,10 +165,11 @@ export default function LoginPage() {
 
               <button
                 type="button"
+                disabled={loading}
                 onClick={handleGoogleSignIn}
-                className="bubblegum-font w-full bg-orange-400 hover:bg-orange-500 text-white text-xl py-4 rounded-full transition-all duration-300 hover:-translate-y-1 hover:scale-105 shadow-lg"
+                className="bubblegum-font w-full bg-orange-400 hover:bg-orange-500 disabled:bg-orange-300 text-white text-xl py-4 rounded-full transition-all duration-300 hover:-translate-y-1 hover:scale-105 shadow-lg disabled:cursor-not-allowed"
               >
-                🌐 Entrar con Google
+                {loading ? "Cargando..." : "🌐 Entrar con Google"}
               </button>
             </form>
 
